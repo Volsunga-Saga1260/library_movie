@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>Public::Movies#index</h1>
+
+  <div>
+    <%= link_to "新規投稿", new_movie_path, class:"btn btn-success" %>
+  </div>
+
+  <table class="table table-hover table-inverse">
+    <thead>
+      <tr>
+        <td>感想タイトル</td>
+        <td>原作</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td><%= movie.title %></td>
+          <td><%= movie.original %></td>
+          <td><%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %></td>
+          <td><%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

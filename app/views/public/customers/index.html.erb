@@ -1,0 +1,52 @@
+<div class="container">
+  <%= flash[:success] %>
+  <div class="row my-3">
+    <div class="col-sm-3 border">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+             <h3 align="center">ユーザー情報</h3>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="center"><P><%= attachment_image_tag @customer, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></p></td>
+          </tr>
+          <tr>
+            <td><%= @customer.name %></td>
+          <tr>
+          <tr>
+            <td><%= @customer.introduction %></td>
+          </tr>
+          <tr>
+            <td><%= link_to "編集", edit_customer_path(@customer.id), class:"btn btn-primary btn-block" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-9">
+      <h1>index</h1>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <td>感想タイトル</td>
+            <td>原作</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movies.each do |movie| %>
+            <tr>
+              <td><%= movie.title %></td>
+              <td><%= movie.original %></td>
+              <td><%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %></td>
+              <td><%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
