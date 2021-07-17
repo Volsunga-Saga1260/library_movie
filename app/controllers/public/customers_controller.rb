@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+  
 
   def index
     @customer = current_customer
@@ -17,10 +18,10 @@ class Public::CustomersController < ApplicationController
      render "edit"
     end
   end
-  
+
   def erase
   end
-  
+
   def close
     current_customer.update(is_deleted: true)
     reset_session

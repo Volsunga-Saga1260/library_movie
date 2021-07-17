@@ -1,4 +1,6 @@
 class Public::MoviesController < ApplicationController
+  before_action :authenticate_customer!,except: [:index]
+  
   def index
     @movies = Movie.all
   end
@@ -8,8 +10,8 @@ class Public::MoviesController < ApplicationController
   end
 
   def create
-    movie = current_customer.movies.new(movie_params)
-    movie.save
+    @movie = current_customer.movies.new(movie_params)
+    @movie.save
     redirect_to movies_path
   end
 
