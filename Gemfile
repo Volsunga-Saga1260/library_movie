@@ -74,3 +74,4 @@ gem 'font-awesome-sass', '~> 5.13'
 gem 'pry-byebug', group: :development
 
 gem 'devise'
+gem 'activeadmin'

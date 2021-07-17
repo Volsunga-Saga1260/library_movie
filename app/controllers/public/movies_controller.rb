@@ -1,4 +1,4 @@
-class Public::MoviesController < ApplicationController
+class Public::MoviesController < Public::ApplicationController
   before_action :authenticate_customer!,except: [:index]
   
   def index
