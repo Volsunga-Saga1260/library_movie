@@ -3,7 +3,7 @@ class Public::CustomersController < Public::ApplicationController
 
   def index
     @customer = current_customer
-    @movies = current_customer.movies
+    @movies = current_customer.movies.page(params[:page]).reverse_order
   end
 
   def edit

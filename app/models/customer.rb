@@ -5,6 +5,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
    has_many :movies, dependent: :destroy
+   has_many :favorites, dependent: :destroy
    attachment :profile_image
    
    validates :name, presence: true, length: {maximum: 20, minimum: 2}, uniqueness: true

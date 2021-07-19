@@ -1,27 +1,68 @@
 <div class="container">
-  <h1>Public::Movies#index</h1>
-
-  <div>
-    <%= link_to "新規投稿", new_movie_path, class:"btn btn-success" %>
+  <div class="row">
+    <h1>Public::Movies#index</h1>
   </div>
 
-  <table class="table table-hover table-inverse">
-    <thead>
-      <tr>
-        <td>感想タイトル</td>
-        <td>原作</td>
-        <td></td>
-      </tr>
-    </thead>
-    <tbody>
-      <% @movies.each do |movie| %>
-        <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.original %></td>
-          <td><%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %></td>
-          <td><%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %></td>
-        </tr>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 col-xs-offset-3 text-center" style="margin-top: 25px;">
+      <% if customer_signed_in? %>
+        <%= form_with url:movies_path, method: :get, local: true do |f| %>
+          <%= f.text_field 'search[value]', :placeholder => "感想タイトル or 原作名を入力してください" %>
+          <%= f.select 'search[how]', options_for_select({ "完全一致" => "match", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partical"  }) %>
+          <%= f.submit :"検索" %>
+        <% end %>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10">
+      <%= link_to "新規投稿", new_movie_path, class:"btn btn-success" %>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+
+  <div class="row">
+    <table class="table table-hover table-inverse">
+      <thead>
+        <tr>
+          <td>感想タイトル</td>
+          <td>原作</td>
+          <td>ジャンル</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @movies.each do |movie| %>
+          <tr>
+            <td><%= movie.title %></td>
+            <td><%= movie.original %></td>
+            <td><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
+            <td><%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %></td>
+            <td><%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %></td>
+          </tr>
+          <tr>
+            <td>
+            <% if movie.favorited_by?(current_customer) %>
+              <p>
+                <%= link_to movie_favorites_path(movie), method: :delete do %>
+                  ♥<%= movie.favorites.count %> いいね
+                <% end %>
+              </p>
+              <% else %>
+              <p>
+                <%= link_to movie_favorites_path(movie), method: :post do %>
+                  ♡<%= movie.favorites.count %> いいね
+                <% end %>
+              </p>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
