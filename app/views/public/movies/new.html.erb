@@ -10,6 +10,9 @@
         <%= f.text_field :original, class:"form-control" %>
         <h4>ジャンル</h4>
         <%= f.collection_select(:genre_id, @genres, :id, :name) %>
+        <div id="evaluate_stars">
+          <label>評価</label>
+        </div>
         <h4>本文</h4>
         <%= f.text_area :text, rows:"7", class:"form-control" %>
         <%= f.submit '投稿', class:"btn btn-primary btn-block" %>
@@ -19,3 +22,11 @@
   </div>
 </div>
 
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'movie[evaluation]' //登録するモデル名とカラム名を記述
+  });
+</script>

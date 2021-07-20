@@ -30,23 +30,28 @@
       <% @movies.each do |movie| %>
         <table class="table table-bordered">
           <tr>
-            <td>感想タイトル：<%= movie.title %></td>
-            <td>原作：<%= movie.original %></td>
-            <td>ジャンル：<%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
-          </tr>
-          <tr>
-            <td colspan="2">
+            <td class="align-middle" colspan="2">感想タイトル：<%= movie.title %>
+            </td>
+            <td class="col-sm-2">
               <%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %>
               <%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %>
             </td>
-           <td>
-           </td>
+          </tr>
+          <tr>
+            <td class="col-sm-4">原作：<%= movie.original %></td>
+            <td class="col-sm-3">ジャンル：<%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
+            <td class="col-sm-2">♥<%= movie.favorites.count %> いいね</td>
+          </tr>
+          <tr>
+            <td class="movie-evaluation" data-score="<%= movie.evaluation %>"></td>
           </tr>
          </table>
         <br>
         <% end %>
-        <%= paginate @movies %>
-
     </div>
   </div>
+
+  <p><%= paginate @movies %></p>
+
 </div>
+

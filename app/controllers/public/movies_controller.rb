@@ -41,7 +41,7 @@ class Public::MoviesController < Public::ApplicationController
 
   private
   def movie_params
-    params.require(:movie).permit(:title, :genre_id, :original, :text)
+    params.require(:movie).permit(:title, :genre_id, :original, :evaluation, :text)
   end
 
   def match(model, value)
