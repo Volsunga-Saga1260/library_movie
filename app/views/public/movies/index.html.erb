@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <h1>Public::Movies#index</h1>
+  <div class="row mt-3">
+    <h1>感想投稿一覧</h1>
   </div>
 
   <div class="row">
@@ -18,53 +18,44 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-10">
-      <%= link_to "新規投稿", new_movie_path, class:"btn btn-success" %>
-    </div>
+    <div class="col-sm-8"></div>
     <div class="col-sm-2"></div>
+    <div class="col-sm-2 my-3">
+      <%= link_to "新規投稿", new_movie_path, class:"btn btn-primary btn-block" %>
+    </div>
   </div>
 
   <div class="row">
-    <table class="table table-hover table-inverse">
-      <thead>
-        <tr>
-          <td>感想タイトル</td>
-          <td>原作</td>
-          <td>ジャンル</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @movies.each do |movie| %>
-          <tr>
-            <td><%= movie.title %></td>
-            <td><%= movie.original %></td>
-            <td><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
-            <td><%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %></td>
-            <td><%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %></td>
+    <% @movies.each do |movie| %>
+      <table class="table table-bordered">
+         <tr>
+            <td class="align-middle" colspan="2">感想タイトル：<%= movie.title %></td>
+            <td class="col-sm-2 text-center">
+              <%= link_to '詳細', movie_path(movie.id), class:"btn btn-success btn-block" %>
+            </td>
           </tr>
           <tr>
-            <td>
-            <% if movie.favorited_by?(current_customer) %>
-              <p>
+            <td class="col-sm-8" colspan="2">原作：<%= movie.original %></td>
+            <td class="col-sm-4 text-center">ジャンル：<%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
+          <tr>
+            <td class="col-sm-4 movie-evaluation text-center" data-score="<%= movie.evaluation %>"><strong>評価：</strong></td>
+            <td class="col-sm-4 text-center">
+              <% if movie.favorited_by?(current_customer) %>
                 <%= link_to movie_favorites_path(movie), method: :delete do %>
                   ♥<%= movie.favorites.count %> いいね
                 <% end %>
-              </p>
               <% else %>
-              <p>
                 <%= link_to movie_favorites_path(movie), method: :post do %>
                   ♡<%= movie.favorites.count %> いいね
                 <% end %>
-              </p>
-              </td>
-            <% end %>
-            <td class="movie-evaluation" data-score="<%= movie.evaluation %>"></td>
+              <% end %>
+            </td>
+            <td class="col-sm-4 text-center"><%= movie.customer.name %></td>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+      </table>
+      <br>
+    <% end %>
   </div>
+  <div class="my-3"><%= paginate @movies %></div>
 </div>
 

@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="text-center mt-3">感想詳細</h1>
+      <table class="table table-bordered">
+        <tr>
+          <td class="align-middle" colspan="3"><strong>感想タイトル：</strong><%= @movie.title %></td>
+          <td class="col-sm-2 text-center">
+            <%= link_to '感想投稿一覧へ', movies_path, class:"btn-warning btn-block form-control" %>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-sm-8" colspan="3"><strong>原作：</strong><%= @movie.original %></td>
+          <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= @movie.genre.present? ? @movie.genre.name : 'unknown' %></td>
+        </tr>
+        <tr>
+          <td class="col-sm-3 movie-evaluation text-center" data-score="<%= @movie.evaluation %>"><strong>評価：</strong></td>
+          <td class="col-sm-3 text-center">
+            <% if @movie.favorited_by?(current_customer) %>
+              <%= link_to movie_favorites_path(@movie.id), method: :delete do %>
+                ♥<%= @movie.favorites.count %> いいね
+              <% end %>
+            <% else %>
+              <%= link_to movie_favorites_path(@movie.id), method: :post do %>
+                ♡<%= @movie.favorites.count %> いいね
+              <% end %>
+            <% end %>
+          </td>
+          <td class="col-sm-3 text-center">
+            <% unless current_customer == @customer %>
+              <% if current_customer.liker?(@customer) %>
+                <%= form_for(current_customer.likes.find_by(liker_id: customer.id), html: { method: :delete }) do |f| %>
+                  <%= hidden_field_tag :liker_id, customer.id %>
+                  <%= f.submit 'Unliker', class: 'btn btn-danger btn-block' %>
+                <% end %>
+              <% else %>
+                <%= form_for(current_customer.likes.build) do |f| %>
+                  <%= hidden_field_tag :liker_id, customer.id %>
+                  <%= f.submit 'Liker', class: 'btn btn-primary btn-block' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="col-sm-3 text-center"><strong>投稿者名：</strong><%= @movie.customer.name %></td>
+        </tr>
+        <tr class="inpressions">
+          <td class="col-sm-12" colspan="4"><strong>感想内容：</strong><%=@movie.text %></td><br>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>

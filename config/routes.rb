@@ -8,11 +8,13 @@ Rails.application.routes.draw do
     root :to => "homes#top"
     get 'about' =>  'homes#about'
     resources :customers, only: [:index, :show, :edit, :update] do
+      resources :likes, only: [:create, :destroy]
       collection do
         get :erase
         patch :close
       end
     end
+    
     resources :movies, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]

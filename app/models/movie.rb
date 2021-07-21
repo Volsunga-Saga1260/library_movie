@@ -8,5 +8,6 @@ class Movie < ApplicationRecord
    end
 
    validates :title, presence: true
+   validates :original, presence: true
    validates :text, presence: true, length: {maximum: 200}
 end

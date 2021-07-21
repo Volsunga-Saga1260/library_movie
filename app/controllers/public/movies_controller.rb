@@ -5,9 +5,9 @@ class Public::MoviesController < Public::ApplicationController
     if params["search"].present? && params["search"]["value"].present? && params["search"]["how"].present?
       value = params["search"]["value"]
       how = params["search"]["how"]
-      @movies = search_for(how, "movie", value)
+      @movies = search_for(how, "movie", value).page(params[:page]).reverse_order
     else
-      @movies = Movie.all
+      @movies = Movie.all.page(params[:page]).reverse_order
       @genre = Genre.all
     end
   end
@@ -19,8 +19,16 @@ class Public::MoviesController < Public::ApplicationController
 
   def create
     @movie = current_customer.movies.new(movie_params)
-    @movie.save
-    redirect_to movies_path
+    if @movie.save
+     redirect_to movies_path, flash: {success: "新規の投稿が成功しました"}
+    else
+     @genres = Genre.all
+     redirect_to new_movie_path, flash: {warning: "投稿に失敗しました"}
+    end
+  end
+
+  def show
+    @movie = Movie.find(params[:id])
   end
 
   def edit

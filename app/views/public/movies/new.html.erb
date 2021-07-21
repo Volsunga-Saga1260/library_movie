@@ -2,21 +2,27 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-      <h1>新規投稿</h1>
+      <%= flash[:error] %>
+      <h1 class="text-center mt-3">新規投稿</h1>
       <%= form_with model:@movie, local:true do |f| %>
-        <h4>感想タイトル</h4>
-        <%= f.text_field :title, class:"form-control" %>
-        <h4>原作タイトル</h4>
-        <%= f.text_field :original, class:"form-control" %>
-        <h4>ジャンル</h4>
-        <%= f.collection_select(:genre_id, @genres, :id, :name) %>
+        <h4 class="mt-3">感想タイトル</h4>
+        <%= f.text_field :title, class:"form-control", :placeholder => "感想タイトルをご入力ください" %>
+        <h4 class="mt-3">原作タイトル</h4>
+        <%= f.text_field :original, class:"form-control", :placeholder => "原作タイトルをご入力ください" %>
+        <h4 class="mt-3">ジャンル</h4>
+          <%= f.collection_select(:genre_id, @genres, :id, :name) %>
         <div id="evaluate_stars">
-          <label>評価</label>
+          <h4 class="mt-3">評価</h4>
         </div>
-        <h4>本文</h4>
-        <%= f.text_area :text, rows:"7", class:"form-control" %>
-        <%= f.submit '投稿', class:"btn btn-primary btn-block" %>
+        <h4 class="mt-3">本文</h4>
+        <%= f.text_area :text, rows:"7", class:"form-control", :placeholder => "感想を200文字以内でご入力ください" %>
+        <div class="mt-4">
+          <%= f.submit '投稿', class:"btn btn-primary btn-block" %>
+        </div>
       <% end %>
+      <div class="text-center mt-2">
+        <%= link_to '感想投稿一覧へ', movies_path, class:"btn-warning btn-block form-control" %>
+      </div>
     </div>
     <div class="col-sm-3"></div>
   </div>

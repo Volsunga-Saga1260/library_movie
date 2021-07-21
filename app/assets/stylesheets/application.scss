@@ -14,6 +14,8 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+@import "toastr";
+
 
 // footerの表示位置固定
 header {
@@ -40,3 +42,8 @@ footer {
 .pagination {
   justify-content: center;
 }
+
+.inpressions {
+  height: 100px;
+}
+

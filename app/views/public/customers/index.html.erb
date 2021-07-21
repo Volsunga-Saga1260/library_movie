@@ -30,8 +30,7 @@
       <% @movies.each do |movie| %>
         <table class="table table-bordered">
           <tr>
-            <td class="align-middle" colspan="2">感想タイトル：<%= movie.title %>
-            </td>
+            <td class="align-middle" colspan="2">感想タイトル：<%= movie.title %></td>
             <td class="col-sm-2">
               <%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %>
               <%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-success" %>
@@ -45,13 +44,11 @@
           <tr>
             <td class="movie-evaluation" data-score="<%= movie.evaluation %>"></td>
           </tr>
-         </table>
+        </table>
         <br>
-        <% end %>
+      <% end %>
     </div>
   </div>
-
-  <p><%= paginate @movies %></p>
-
+  <div class="my-3"><%= paginate @movies %></div>
 </div>
 

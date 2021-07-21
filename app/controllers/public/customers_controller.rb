@@ -15,7 +15,7 @@ class Public::CustomersController < Public::ApplicationController
     if @customer.update(customer_params)
      redirect_to customers_path(@customer.id), flash: {success: "You have updated customer successfully."}
     else
-     render "edit"
+     render "new"
     end
   end
 
