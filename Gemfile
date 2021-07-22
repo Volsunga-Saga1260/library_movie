@@ -77,3 +77,8 @@ gem 'devise'
 gem 'activeadmin'
 
 gem "toastr-rails"
+
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
