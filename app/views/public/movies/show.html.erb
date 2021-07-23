@@ -13,41 +13,58 @@
           <td class="col-sm-8" colspan="3"><strong>原作：</strong><%= @movie.original %></td>
           <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= @movie.genre.present? ? @movie.genre.name : 'unknown' %></td>
         </tr>
-        <tr>
-          <td class="col-sm-3 movie-evaluation text-center" data-score="<%= @movie.evaluation %>"><strong>評価：</strong></td>
-          <td class="col-sm-3 text-center">
-            <% if @movie.favorited_by?(current_customer) %>
-              <%= link_to movie_favorites_path(@movie.id), method: :delete do %>
-                ♥<%= @movie.favorites.count %> いいね
-              <% end %>
-            <% else %>
-              <%= link_to movie_favorites_path(@movie.id), method: :post do %>
-                ♡<%= @movie.favorites.count %> いいね
-              <% end %>
-            <% end %>
+        <tr class="text-center">
+          <td class="col-sm-4 movie-evaluation" data-score="<%= @movie.evaluation %>"><strong>評価：</strong></td>
+          <td class="col-sm-2 favorite-btn">
+            <%= render "public/favorites/favorite-btn", movie: @movie %>
           </td>
-          <td class="col-sm-3 text-center">
-            <% unless current_customer == @customer %>
-              <% if current_customer.liker?(@customer) %>
-                <%= form_for(current_customer.likes.find_by(liker_id: customer.id), html: { method: :delete }) do |f| %>
-                  <%= hidden_field_tag :liker_id, customer.id %>
-                  <%= f.submit 'Unliker', class: 'btn btn-danger btn-block' %>
-                <% end %>
-              <% else %>
-                <%= form_for(current_customer.likes.build) do |f| %>
-                  <%= hidden_field_tag :liker_id, customer.id %>
-                  <%= f.submit 'Liker', class: 'btn btn-primary btn-block' %>
-                <% end %>
-              <% end %>
-            <% end %>
+          <td class="col-sm-2">
+            コメント件数：<%= @movie.post_comments.count %>
           </td>
-          <td class="col-sm-3 text-center"><strong>投稿者名：</strong><%= @movie.customer.name %></td>
+          <td class="col-sm-4"><strong>投稿者名：</strong><%= @movie.customer.name %></td>
         </tr>
         <tr class="inpressions">
-          <td class="col-sm-12" colspan="4"><strong>感想内容：</strong><%=@movie.text %></td><br>
+          <td class="col-sm-12" colspan="4"><strong>感想内容：</strong><%= @movie.text %></td>
         </tr>
       </table>
+      <br>
     </div>
     <div class="col-sm-2"></div>
   </div>
+  
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>コメント一覧</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <% @movie.post_comments.each do |post_comment| %>
+        <table class="table table-bordered">
+          <tr>
+            <td class="col-5 align-middle">アカウント名<%= post_comment.customer.name %></td>
+            <td class="col-2 align-middle text-center">更新日：<%= post_comment.created_at.strftime('%Y/%m/%d') %></td>
+            <% if post_comment.customer == current_customer %>
+            <td class="col-1">
+              <%= link_to "削除", movie_post_comment_path(post_comment.movie, post_comment), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-danger" %>
+            </td>
+            <% end %>
+          </tr>
+          <tr class="inpressions2">
+            <td colspan="3">コメント内容：<%= post_comment.comment %></td>
+          </tr>
+        </table>
+      <% end %>
+      
+      <div class="mb-4">
+        <%= form_with(model:[@movie, @post_comment], local: true) do |f| %>
+          <%= f.text_area :comment, rows:'3',placeholder: "コメントをここに", class:"btn-block" %>
+          <%= f.submit "送信", class:"btn btn-primary btn-block" %>
+      <% end %>
+      </div>
+   </div>
+   <div class="col-2"></div>
+  </div>
+
 </div>

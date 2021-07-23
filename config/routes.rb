@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     root :to => "homes#top"
     get 'about' =>  'homes#about'
     resources :customers, only: [:index, :show, :edit, :update] do
-      resources :likes, only: [:create, :destroy]
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
       collection do
         get :erase
         patch :close

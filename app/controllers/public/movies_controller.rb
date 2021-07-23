@@ -20,7 +20,7 @@ class Public::MoviesController < Public::ApplicationController
   def create
     @movie = current_customer.movies.new(movie_params)
     if @movie.save
-     redirect_to movies_path, flash: {success: "新規の投稿が成功しました"}
+     redirect_to movies_path, flash: {success: "新規投稿が成功しました"}
     else
      @genres = Genre.all
      redirect_to new_movie_path, flash: {warning: "投稿に失敗しました"}
@@ -29,16 +29,22 @@ class Public::MoviesController < Public::ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
     @movie = Movie.find(params[:id])
+    @genres = Genre.all
   end
 
   def update
     movie = Movie.find(params[:id])
-    movie.update(movie_params)
-    redirect_to movies_path(movie)
+    if movie.update(movie_params)
+      redirect_to movies_path(movie),flash: {success: "編集が成功しました"}
+    else
+      @genres = Genre.all
+      redirect_to edit_movie_path(movie.id), flash: {warning: "編集に失敗しました"}
+    end
   end
 
   def destroy

@@ -1,5 +1,5 @@
 class Public::CustomersController < Public::ApplicationController
-  
+
 
   def index
     @customer = current_customer
@@ -10,12 +10,17 @@ class Public::CustomersController < Public::ApplicationController
     @customer = Customer.find(params[:id])
   end
 
+  def show
+    @customer = Customer.find(params[:id])
+    @movies = @customer.movies.page(params[:page]).reverse_order
+  end
+
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
-     redirect_to customers_path(@customer.id), flash: {success: "You have updated customer successfully."}
+     redirect_to customers_path(@customer.id), flash: {success: "アカウント情報の編集に成功しました"}
     else
-     render "new"
+     redirect_to edit_customers_path(@customer.id), flash: {error: "アカウント情報の編集に失敗しました"}
     end
   end
 
@@ -31,7 +36,8 @@ class Public::CustomersController < Public::ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:name, :profile_image, :introduction, )
+    params.require(:customer).permit(:name, :profile_image, :original, :introduction, )
   end
+
 
 end

@@ -1,0 +1,5 @@
+class AddOriginalToCustomers < ActiveRecord::Migration[5.2]
+  def change
+    add_column :customers, :original, :string
+  end
+end

@@ -6,25 +6,27 @@ class Customer < ApplicationRecord
 
   has_many :movies, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
   
-  has_many :likes
-  has_many :likers, through: :likes, source: :liker
-  has_many :reverse_of_likes, class_name: 'Like', foreign_key: 'liker_id'
-  has_many :likers, through: :reverse_of_likes, source: :customer
+  # 自分がフォローされる（被フォロー）側の関係性
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # 自分がフォローする（与フォロー）側の関係性
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # 被フォロー関係を通じて参照→自分をフォローしている人
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+  # 与フォロー関係を通じて参照→自分がフォローしている人
+  has_many :followings, through: :relationships, source: :followed
   
-  def liker(other_customer)
-    unless self == other_customer
-      self.likes.find_or_create_by(liker_id: other_customer.id)
-    end
+  def follow(customer_id)
+    relationships.create(followed_id: customer_id)
   end
 
-  def unliker(other_customer)
-    like = self.likes.find_by(liker_id: other_customer.id)
-    like.destroy if like
+  def unfollow(customer_id)
+    relationships.find_by(followed_id: customer_id).destroy
   end
 
-  def liker?(other_customer)
-    self.likers.include?(other_customer)
+  def following?(customer)
+    followings.include?(customer)
   end
    
    attachment :profile_image
