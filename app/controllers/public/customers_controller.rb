@@ -20,7 +20,7 @@ class Public::CustomersController < Public::ApplicationController
     if @customer.update(customer_params)
      redirect_to customers_path(@customer.id), flash: {success: "アカウント情報の編集に成功しました"}
     else
-     redirect_to edit_customers_path(@customer.id), flash: {error: "アカウント情報の編集に失敗しました"}
+     redirect_to edit_customers_path(@customer.id), flash: {warning: "アカウント情報の編集に失敗しました"}
     end
   end
 
@@ -30,8 +30,7 @@ class Public::CustomersController < Public::ApplicationController
   def close
     current_customer.update(is_deleted: true)
     reset_session
-    flash[:notice] = "ありがとうございました。またのご利用をお待ちしております。"
-    redirect_to root_path
+    redirect_to root_path,  flash[:error] = "ありがとうございました。またのご利用をお待ちしております。"
   end
 
   private
