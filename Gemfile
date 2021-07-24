@@ -71,7 +71,13 @@ gem 'bootstrap', '~> 4.5'
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.13'
 
-gem 'pry-byebug', group: :development
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'pry-byebug', group: :development
+  
+  gem 'pry-byebug'
+  gem 'pry-rails'
+end
 
 gem 'devise'
 gem 'activeadmin'

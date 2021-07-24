@@ -1,4 +1,4 @@
-<% if movie.favorited_by?(current_customer) %>
+<% if current_customer && movie.favorited_by?(current_customer) %>
   <%= link_to movie.favorites.count, movie_favorites_path(movie), method: :delete, remote: true, class: "fas fa-heart heart_red" %>
 <% else %>
   <%= link_to movie.favorites.count, movie_favorites_path(movie), method: :post, remote: true, class: "fas fa-heart heart_blue" %>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :customers
@@ -16,12 +16,12 @@ Rails.application.routes.draw do
         patch :close
       end
     end
-    
+
     resources :movies, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
-    
+
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -5,7 +5,7 @@ class Movie < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   
   def favorited_by?(customer)
-  favorites.where(customer_id: customer.id).exists?
+    favorites.where(customer_id: customer.id).exists?
   end
   
   validates :title, presence: true
