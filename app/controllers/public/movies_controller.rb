@@ -59,19 +59,19 @@ class Public::MoviesController < Public::ApplicationController
   end
 
   def match(model, value)
-    Movie.where(title: value)
+    Movie.where(title: value, original: value)
   end
 
   def forward(model, value)
-    Movie.where("title LIKE ?", "#{value}%")
+    Movie.where("title LIKE ?", "#{value}%").where("original LIKE ?", "#{value}%")
   end
 
   def backward(model, value)
-    Movie.where("title LIKE ?", "%#{value}")
+    Movie.where("title LIKE ?", "%#{value}").where("original LIKE ?", "#{value}%")
   end
 
   def partical(model, value)
-    Movie.where("title LIKE ?", "%#{value}%")
+    Movie.where("title LIKE ?", "%#{value}%").where("original LIKE ?", "#{value}%")
   end
 
   def search_for(how, model, value)
