@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_064616) do
+ActiveRecord::Schema.define(version: 2021_07_25_124158) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_064616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.boolean "is_deleted"
     t.text "introduction"
     t.text "profile_image_id"
     t.string "email", default: "", null: false
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_064616) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "original"
+    t.boolean "is_deleted", default: false
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -66,16 +66,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_064616) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "likes", force: :cascade do |t|
-    t.integer "customer_id"
-    t.integer "liker_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id", "liker_id"], name: "index_likes_on_customer_id_and_liker_id", unique: true
-    t.index ["customer_id"], name: "index_likes_on_customer_id"
-    t.index ["liker_id"], name: "index_likes_on_liker_id"
   end
 
   create_table "movies", force: :cascade do |t|

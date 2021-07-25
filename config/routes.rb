@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :customers
+  devise_for :customers, :controllers => {
+    #:registrations => 'users/registrations',
+    :sessions => 'customers/sessions'   
+  } 
+  
   scope module: :public do
     root :to => "homes#top"
     get 'about' =>  'homes#about'

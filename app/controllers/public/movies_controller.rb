@@ -2,10 +2,10 @@ class Public::MoviesController < Public::ApplicationController
   before_action :authenticate_customer!,except: [:index]
 
   def index
-    if params["search"].present? && params["search"]["value"].present? && params["search"]["how"].present?
-      value = params["search"]["value"]
-      how = params["search"]["how"]
-      @movies = search_for(how, "movie", value).page(params[:page]).reverse_order
+    if params["search"].present?
+      @movies = search_for.page(params[:page]).reverse_order
+    elsif params["sort"].present? && params["sort"]["how"] == "ASC"
+      @movies = Movie.all.page(params[:page])
     else
       @movies = Movie.all.page(params[:page]).reverse_order
       @genre = Genre.all
@@ -58,32 +58,33 @@ class Public::MoviesController < Public::ApplicationController
     params.require(:movie).permit(:title, :genre_id, :original, :evaluation, :text)
   end
 
-  def match(model, value)
+  def match(value)
     Movie.where(title: value, original: value)
   end
 
-  def forward(model, value)
+  def forward(value)
     Movie.where("title LIKE ?", "#{value}%").where("original LIKE ?", "#{value}%")
   end
 
-  def backward(model, value)
+  def backward(value)
     Movie.where("title LIKE ?", "%#{value}").where("original LIKE ?", "#{value}%")
   end
 
-  def partical(model, value)
+  def partical(value)
     Movie.where("title LIKE ?", "%#{value}%").where("original LIKE ?", "#{value}%")
   end
 
-  def search_for(how, model, value)
-    case how
+  def search_for
+    value = params["search"]["value"]
+    case params["search"]["how"]
     when 'match'
-      match(model, value)
+      match(value)
     when 'forward'
-      forward(model, value)
+      forward(value)
     when 'backward'
-      backward(model, value)
+      backward(value)
     when 'partical'
-      partical(model, value)
+      partical(value)
     end
   end
 

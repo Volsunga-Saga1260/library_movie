@@ -28,6 +28,10 @@ class Customer < ApplicationRecord
   def following?(customer)
     followings.include?(customer)
   end
+  
+  def active_for_authentication?
+    super && (self.is_deleted == false)
+  end
    
    attachment :profile_image
    
