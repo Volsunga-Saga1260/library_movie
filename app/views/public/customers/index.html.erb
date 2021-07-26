@@ -27,8 +27,8 @@
         </tr>
         <tr>
           <td class="col-6"><strong>好きな動画：</strong><%= @customer.original %></td>
-          <td class="col-3"><%= @customer.followings.count %></td>
-          <td class="col-3"><%= @customer.followers.count %></td>
+          <td class="col-3 text-center"><%= link_to "お気に入り登録数： #{@customer.followings.count}", customer_followings_path(@customer.id), class:"btn btn-warning" %></td>
+          <td class="col-3 text-center"><%= link_to "お気に入りされた登録数：#{@customer.followers.count}", customer_followers_path(@customer.id), class:"btn btn-warning" %></td>
         </tr>
         <tr class="inpressions">
           <td colspan="3"><strong>自己紹介：</strong><%= @customer.introduction %></td>
