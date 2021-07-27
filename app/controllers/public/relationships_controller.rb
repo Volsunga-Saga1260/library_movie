@@ -11,13 +11,13 @@ class Public::RelationshipsController < Public::ApplicationController
   # followings, followersは省略
 
   def followings
-     customer = Customer.find(params[:customer_id])
-     @customers = customer.followings
+     @customer = Customer.find(params[:customer_id])
+     @customers = @customer.followings.page(params[:page]).reverse_order
   end
 
   def followers
-     customer = Customer.find(params[:customer_id])
-     @customers = customer.followers
+     @customer = Customer.find(params[:customer_id])
+     @customers = @customer.followers.page(params[:page]).reverse_order
   end
 
 end
