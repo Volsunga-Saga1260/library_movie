@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row mt-3">
-    <h1>感想投稿一覧</h1>
+    <div class="col-12 text-center">
+      <h1>〜感想投稿一覧〜</h1>
+    </div>
   </div>
 
   <div class="row">
@@ -8,7 +10,7 @@
     <div class="col-sm-6 col-xs-offset-3 text-center" style="margin-top: 25px;">
       <% if customer_signed_in? %>
         <%= form_with url:movies_path, method: :get, local: true do |f| %>
-          <%= f.text_field 'search[value]', :placeholder => "感想タイトル or 原作名を入力してください" %>
+          <%= f.text_field 'search[value]', :placeholder => "感想タイトル or 原作名を入力してください", :size => "40*30" %>
           <%= f.select 'search[how]', options_for_select({ "完全一致" => "match", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partical"  }) %>
           <%= f.submit :"検索", class:"btn btn-primary" %>
         <% end %>
@@ -18,13 +20,15 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-2 my-3">
-      <%= form_with url:movies_path, method: :get, local: true do |f| %>
-        <%= f.select 'sort[how]', options_for_select({ "new" => "DESC", "old" => "ASC" }) %>
-        <%= f.submit :"sort", class:"btn btn-primary" %>
+    <div class="col-sm-3 my-3">
+      <% if customer_signed_in? %>
+        <%= form_with url:movies_path, method: :get, local: true do |f| %>
+          <%= f.select 'sort[how]', options_for_select({ "新しい投稿順" => "DESC", "古い投稿順" => "ASC" }) %>
+          <%= f.submit :"sort", class:"btn btn-primary" %>
+        <% end %>
       <% end %>
     </div>
-    <div class="col-sm-8"></div>
+    <div class="col-sm-7"></div>
     <div class="col-sm-2 my-3">
       <%= link_to "新規投稿", new_movie_path, class:"btn btn-primary btn-block" %>
     </div>
@@ -35,22 +39,20 @@
       <% @movies.each do |movie| %>
         <table class="table table-bordered">
            <tr>
-              <td class="align-middle" colspan="3">感想タイトル：<%= movie.title %></td>
+              <td class="align-middle" colspan="3"><strong>感想タイトル：</strong><%= movie.title %></td>
               <td class="col-sm-2 text-center">
-                <%= link_to '詳細', movie_path(movie.id), class:"btn btn-warning btn-block" %>
+                <%= link_to '詳細', movie_path(movie.id), class:"btn btn-info btn-block" %>
               </td>
             </tr>
             <tr>
-              <td class="col-sm-8" colspan="3">原作：<%= movie.original %></td>
-              <td class="col-sm-4 text-center">ジャンル：<%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
+              <td class="col-sm-8" colspan="3"><strong>原作：</strong><%= movie.original %></td>
+              <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
             <tr class="text-center">
               <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>"><strong>評価：</strong></td>
               <td class="col-sm-2 favorite-btn" id="movie-<%= movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: movie %>
               </td>
-              <td class="col-sm-2">
-                コメント件数：<%= movie.post_comments.count %>
-              </td>
+              <td class="col-sm-2"><strong>コメント件数：</strong><%= movie.post_comments.count %></td>
               <td class="col-sm-4">
                 <strong>投稿者名：</strong>
                 <% if movie.customer == current_customer %>

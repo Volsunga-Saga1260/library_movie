@@ -23,7 +23,7 @@ class Public::MoviesController < Public::ApplicationController
      redirect_to movies_path, flash: {success: "新規投稿が成功しました"}
     else
      @genres = Genre.all
-     redirect_to new_movie_path, flash: {warning: "投稿に失敗しました"}
+     redirect_to new_movie_path, flash: {warning: "新規投稿に失敗しました"}
     end
   end
 
@@ -50,7 +50,7 @@ class Public::MoviesController < Public::ApplicationController
   def destroy
     movie = Movie.find(params[:id])
     movie.destroy
-    redirect_to movies_path
+    redirect_to request.referer, flash: {error: "投稿を削除しました"}
   end
 
   private

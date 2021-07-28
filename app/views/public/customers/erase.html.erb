@@ -16,7 +16,7 @@
     <div class="mlr-10">
       <%= link_to "退会しない", customers_path(current_customer.id), class: "btn btn-primary" %>
       <% if customer_signed_in?  %>
-          <%= link_to "退会する", close_customers_path(current_customer), method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-outline-primary" %>
+          <%= link_to "退会する", close_customers_path(current_customer), method: :patch, "data-confirm" => "本当に退会しますか？", class: "btn btn-danger" %>
       <% end %>
     </div>
   </div>

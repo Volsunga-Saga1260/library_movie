@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="text-center mt-3">感想詳細</h1>
+      <h1 class="text-center mt-3">〜感想詳細〜</h1>
       <table class="table table-bordered">
         <tr>
           <td class="align-middle" colspan="3"><strong>感想タイトル：</strong><%= @movie.title %></td>
           <td class="col-sm-2 text-center">
-            <%= link_to '感想投稿一覧へ', movies_path, class:"btn-warning btn-block form-control" %>
+            <%= link_to '感想投稿一覧へ', movies_path, class:"btn-info btn-block form-control" %>
           </td>
         </tr>
         <tr>
@@ -15,9 +15,9 @@
         </tr>
         <tr class="text-center">
           <td class="col-sm-4 movie-evaluation" data-score="<%= @movie.evaluation %>"><strong>評価：</strong></td>
-          <td class="col-sm-2 favorite-btn">
-            <%= render "public/favorites/favorite-btn", movie: @movie %>
-          </td>
+          <td class="col-sm-2 favorite-btn" id="movie-<%= @movie.id %>">
+                <%= render "public/favorites/favorite-btn", movie: @movie %>
+              </td>
           <td class="col-sm-2">
             コメント件数：<%= @movie.post_comments.count %>
           </td>

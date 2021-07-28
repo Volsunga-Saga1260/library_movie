@@ -43,34 +43,40 @@
     </div>
   </div>
   
-  <div class="row">
-    <table class='table'>
-      <% if @customers.exists? %>
-        <thead>
-          <tr>
-            <td>image</td>
-            <td>name</td>
-            <td></td>
-            <td></td>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <% @customers.each do |customer| %>
-            <tr>
-              <td><%= attachment_image_tag customer, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
-              <td><%= customer.name %></td>
-              <td>フォロー数: <%= customer.followings.count %></td>
-              <td>フォロワー数: <%= customer.followers.count %></td>
-              <td><%= link_to 'show', customer_path(customer.id) %></td>
+ <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <table class='table'>
+        <% if @customers.exists? %>
+          <thead>
+            <tr class="text-center">
+              <td>イメージ画像</td>
+              <td>アカウント名</td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-          <% end %>
-          </tbody>
-      <% else %>
-        <p>ユーザーはいません</p>
-      <% end %>
-    </table>
-  </div>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+              <tr class="text-center">
+                <td class="text-center align-middle"><%= attachment_image_tag customer, :profile_image, :fill, 80, 80, format: 'jpeg', fallback: "no_image.jpg" %></td>
+                <td class="text-center align-middle"><%= customer.name %></td>
+                <td class="text-center align-middle">フォロー数: <%= customer.followings.count %></td>
+                <td class="text-center align-middle">フォロワー数: <%= customer.followers.count %></td>
+                <td class="text-center align-middle"><%= link_to '詳細', customer_path(customer.id), class:"btn btn-info" %></td>
+              </tr>
+            <% end %>
+            </tbody>
+        <% else %>
+        <div class="text-center mt-4" style="font-size: 150%;">
+          <p>ユーザーはいません</p>
+        </div>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-1"></div>
+  </div> 
   
   <div class="row">
     <div class="my-3"><%= paginate @customers %></div>

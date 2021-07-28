@@ -3,7 +3,7 @@
   <div class="row my-3">
     <div class="col-12">
       <tr>
-          <h1 class="text-center my-3">アカウント情報</h1>
+          <h1 class="text-center my-3"><%= @customer.name %>さんのアカウント情報</h1>
       </tr>
     </div>
   </div>
@@ -46,7 +46,7 @@
 
   <div class="row my-3">
     <div class="col-12">
-      <h3 class="text-center"><strong>アカウントの投稿一覧</strong></h3>
+      <h3 class="text-center"><%= @customer.name %>さんの投稿一覧</h3>
       <% @movies.each do |movie| %>
         <table class="table table-bordered">
           <tr>
@@ -62,7 +62,7 @@
           <tr class="text-center">
             <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>"></td>
             <td class="col-sm-4">♥️<%= movie.favorites.count %> いいね</td>
-            <td class="col-sm-4"></td>
+            <td class="col-sm-4"><strong>コメント件数：</strong><%= movie.post_comments.count %></td>
           </tr>
         </table>
         <br>

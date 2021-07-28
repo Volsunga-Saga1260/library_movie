@@ -2,11 +2,11 @@ class Public::RelationshipsController < Public::ApplicationController
 
   def create
     current_customer.follow(params[:customer_id])
-    redirect_to request.referer
+    redirect_to request.referer, flash: {success: "コメント投稿に成功しました"}
   end
   def destroy
     current_customer.unfollow(params[:customer_id])
-    redirect_to request.referer
+    redirect_to request.referer, flash: {error: "コメントを削除しました"}
   end
   # followings, followersは省略
 

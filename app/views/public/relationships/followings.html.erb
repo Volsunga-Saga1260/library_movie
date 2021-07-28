@@ -64,12 +64,14 @@
                 <td class="text-center align-middle"><%= customer.name %></td>
                 <td class="text-center align-middle">フォロー数: <%= customer.followings.count %></td>
                 <td class="text-center align-middle">フォロワー数: <%= customer.followers.count %></td>
-                <td class="text-center align-middle"><%= link_to '詳細', customer_path(customer.id), class:"btn btn-warning" %></td>
+                <td class="text-center align-middle"><%= link_to '詳細', customer_path(customer.id), class:"btn btn-info" %></td>
               </tr>
             <% end %>
             </tbody>
         <% else %>
+        <div class="text-center mt-4" style="font-size: 150%;">
           <p>ユーザーはいません</p>
+        </div>
         <% end %>
       </table>
     </div>

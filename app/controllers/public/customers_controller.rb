@@ -30,7 +30,7 @@ class Public::CustomersController < Public::ApplicationController
   def close
     current_customer.update(is_deleted: true)
     reset_session
-    redirect_to root_path,  flash[:error] = "ありがとうございました。またのご利用をお待ちしております。"
+    redirect_to root_path, flash: {error: "ありがとうございました。またのご利用をお待ちしております。"}
   end
 
   private

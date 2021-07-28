@@ -56,21 +56,21 @@
       <% @movies.each do |movie| %>
         <table class="table table-bordered">
           <tr>
-            <td class="align-middle" colspan="2">感想タイトル：<%= movie.title %></td>
+            <td class="align-middle" colspan="2"><strong>感想タイトル：</strong><%= movie.title %></td>
             <td class="col-sm-2 text-center">
-              <%= link_to '詳細', movie_path(movie.id), class:"btn btn-warning" %>
+              <%= link_to '詳細', movie_path(movie.id), class:"btn btn-info" %>
               <%= link_to '編集', edit_movie_path(movie.id), class:"btn btn-success" %>
               <%= link_to '削除', movie_path(movie), method: :delete, "data-confirm" => "本当に消しますか", class:"btn btn-danger" %>
             </td>
           </tr>
           <tr>
-            <td class="col-sm-4">原作：<%= movie.original %></td>
-            <td class="col-sm-3">ジャンル：<%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
-            <td class="col-sm-2">♥<%= movie.favorites.count %> いいね</td>
+            <td class="col-sm-8" colspan="2"><strong>原作：</strong><%= movie.original %></td>
+            <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
           </tr>
-          <tr>
-            <td class="movie-evaluation" data-score="<%= movie.evaluation %>"></td>
-          </tr>
+          <tr class="text-center">
+            <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>"></td>
+            <td class="col-sm-4">♥️<%= movie.favorites.count %> いいね</td>
+            <td class="col-sm-4"><strong>コメント件数：</strong><%= movie.post_comments.count %></td>
         </table>
         <br>
       <% end %>
