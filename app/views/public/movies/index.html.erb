@@ -50,7 +50,7 @@
               <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
             <tr class="text-center">
               <td class="col-sm-4 movie-evaluation-<%= movie.id %>" data-score="<%= movie.evaluation %>" id="evaluate_stars"><strong>評価：</strong></td>
-              <script>
+              <script data-turbolinks-eval="false">
                 $(document).on('turbolinks:load', function() {
                   $('.movie-evaluation-<%= movie.id %>').raty({
                     size: 36,
