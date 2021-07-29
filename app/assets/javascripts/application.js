@@ -18,4 +18,3 @@
 //= require turbolinks
 //= require toastr
 //= require_tree .
-//= require jquery.raty.js
