@@ -61,7 +61,7 @@
                     readOnly: true,
                     score: <%= movie.evaluation %>
                   });
-                })
+                });
               </script>
               <td class="col-sm-2 favorite-btn" id="movie-<%= movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: movie %>
