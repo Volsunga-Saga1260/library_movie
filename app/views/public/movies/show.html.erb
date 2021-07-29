@@ -70,6 +70,7 @@
 </div>
 
   <script>
+  $(document).on('turbolinks:load', function() {
     $('#movie-evaluation-<%= @movie.id %>').raty({
       size: 36,
       starOff:  '<%= asset_path('star-off.png') %>',
@@ -79,4 +80,5 @@
       readOnly: true,
       score: <%= @movie.evaluation %>
     });
+  })
   </script>
