@@ -14,7 +14,7 @@
           <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= @movie.genre.present? ? @movie.genre.name : 'unknown' %></td>
         </tr>
         <tr class="text-center">
-          <td class="col-sm-4 movie-evaluation" data-score="<%= @movie.evaluation %>"><strong>評価：</strong></td>
+          <td class="col-sm-4 movie-evaluation" data-score="<%= @movie.evaluation %>" id="movie-evaluation-<%= @movie.id %>"><strong>評価：</strong></td>
           <td class="col-sm-2 favorite-btn" id="movie-<%= @movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: @movie %>
               </td>
@@ -68,3 +68,15 @@
   </div>
 
 </div>
+
+  <script>
+    $('#movie-evaluation-<%= @movie.id %>').raty({
+      size: 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      half: true,
+      readOnly: true,
+      score: <%= @movie.evaluation %>
+    });
+  </script>
