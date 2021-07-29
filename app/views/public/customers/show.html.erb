@@ -60,7 +60,20 @@
             <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
           </tr>
           <tr class="text-center">
-            <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>"></td>
+            <td class="col-sm-4 movie-evaluation-<%= movie.id %>" data-score="<%= movie.evaluation %>" id="evaluate_stars"><strong>評価：</strong></td>
+              <script>
+               $(document).on('turbolinks:load', function() {
+                $('.movie-evaluation-<%= movie.id %>').raty({
+                  size: 36,
+                  starOff:  '<%= asset_path('star-off.png') %>',
+                  starOn : '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  half: true,
+                  readOnly: true,
+                  score: <%= movie.evaluation %>
+                });
+               });
+              </script>
             <td class="col-sm-4">♥️<%= movie.favorites.count %> いいね</td>
             <td class="col-sm-4"><strong>コメント件数：</strong><%= movie.post_comments.count %></td>
           </tr>
