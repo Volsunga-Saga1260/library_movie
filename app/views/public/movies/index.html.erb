@@ -62,8 +62,8 @@
                     score: <%= movie.evaluation %>
                   })
 
-                $(document).on('turbolinks:load', handleAddStar);
-                $(document).on('turbolinks:restore', handleAddStar);
+                $(document).bind('turbolinks:load', handleAddStar);
+                $(document).bind('turbolinks:restore', handleAddStar);
               </script>
               <td class="col-sm-2 favorite-btn" id="movie-<%= movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: movie %>
