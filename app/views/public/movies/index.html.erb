@@ -48,7 +48,7 @@
               <td class="col-sm-8" colspan="3"><strong>原作：</strong><%= movie.original %></td>
               <td class="col-sm-4 text-center"><strong>ジャンル：</strong><%= movie.genre.present? ? movie.genre.name : 'unknown' %></td>
             <tr class="text-center">
-              <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>"><strong>評価：</strong></td>
+              <td class="col-sm-4 movie-evaluation" data-score="<%= movie.evaluation %>" id="evaluate_stars"><strong>評価：</strong></td>
               <td class="col-sm-2 favorite-btn" id="movie-<%= movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: movie %>
               </td>
