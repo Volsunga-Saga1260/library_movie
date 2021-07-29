@@ -51,8 +51,7 @@
             <tr class="text-center">
               <td class="col-sm-4 movie-evaluation-<%= movie.id %>" data-score="<%= movie.evaluation %>" id="evaluate_stars"><strong>評価：</strong></td>
               <script>
-                $(document).on('page:restore', function() {
-                  location.reload();
+                $(document).on('ready page:load', function() {
                   $('.movie-evaluation-<%= movie.id %>').raty({
                     size: 36,
                     starOff:  '<%= asset_path('star-off.png') %>',
