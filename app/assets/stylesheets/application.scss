@@ -20,7 +20,7 @@
 // footerの表示位置固定
 header {
   height: 90px;
-  background-color: #faa61a;
+  background-color: #00FF99;
   font-size: 140%;
 }
 
@@ -32,7 +32,11 @@ body {
 
 footer {
   margin-top: auto;
-  background-color: #faa61a;
+  background-color: #00FF99;
+}
+
+.footer-text {
+  font-color: #FFFFFF;
 }
 
 .pagination {

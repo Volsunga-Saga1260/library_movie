@@ -38,10 +38,12 @@
     <%= yield %>
     <footer class="footer">
       <div class="container text-center mt-5">
-        <p><smal>&copy; movie_liblary.inc</smal></p>
+        <div class="footer-text">
+          <p><smal>&copy; movie_liblary.inc</smal></p>
+        </div>
       </div>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/raty-js@3.0.0/lib/jquery.raty.js"></script>
     <!--フラッシュメッセージ。----------------------- -->
     <% flash.each do |type, msg| %>
