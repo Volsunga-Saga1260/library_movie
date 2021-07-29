@@ -51,7 +51,7 @@
             <tr class="text-center">
               <td class="col-sm-4 movie-evaluation-<%= movie.id %>" data-score="<%= movie.evaluation %>" id="evaluate_stars"><strong>評価：</strong></td>
               <script>
-                var handleAddStar = function() {
+                $(document).on('turbolinks:load', function() {
                   $('.movie-evaluation-<%= movie.id %>').raty({
                     size: 36,
                     starOff:  '<%= asset_path('star-off.png') %>',
@@ -60,10 +60,8 @@
                     half: true,
                     readOnly: true,
                     score: <%= movie.evaluation %>
-                  })
-
-                $(document).bind('turbolinks:load', handleAddStar);
-                $(document).bind('turbolinks:restore', handleAddStar);
+                  });
+               });
               </script>
               <td class="col-sm-2 favorite-btn" id="movie-<%= movie.id %>">
                 <%= render "public/favorites/favorite-btn", movie: movie %>
